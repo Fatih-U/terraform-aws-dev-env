@@ -118,12 +118,12 @@ resource "aws_instance" "dev_node" {
     such as installing software, configuring applications, or setting up the environment on the remote resource.
     */
   provisioner "local-exec" {
-    command = templatefile("linux-ssh-config.tpl", {
+    command = templatefile("${var.host_os}-ssh-config.tpl", {
       hostname     = self.public_ip,
       user         = "ubuntu"
       identityfile = "~/.ssh/fatih_key"
     })
-    interpreter = ["bash", "-c"]
+    interpreter = var.host_os == "linux" ? ["bash", "-c"] : ["Powershell", "-Command"]
   }
 
 }
