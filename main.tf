@@ -102,8 +102,8 @@ resource "aws_instance" "dev_node" {
   key_name               = aws_key_pair.fatih_auth.id
   vpc_security_group_ids = [aws_security_group.fatih_sg.id]
   subnet_id              = aws_subnet.fatih_public_subnet.id
-  #add user data from userdata.tpl file. this userdata installs docker engine
-  user_data = file("userdata.tpl")
+  #add user data from userdata.tpl file. this userdata installs required software
+  user_data = file("userdata_apache.tpl")
 
   root_block_device {
     volume_size = 10
